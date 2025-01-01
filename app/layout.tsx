@@ -90,18 +90,19 @@ export default function RootLayout({
           <PolicyPopups />
         </ThemeProvider>
         <StructuredData
-          data={{
-            "@type": "Organization",
-            "name": "MasterCrypto",
-            "url": "https://mastercrypto.me",
-            "logo": "https://i.imgur.com/uJAAW0r.png",
-            "sameAs": [
-              "https://x.com/al_habeshee?s=21",
-              "https://t.me/mastercryptoet",
-              "https://youtube.com/@mastercrypto-pl3ub?si=Cd5RHhbDQg7YttdA"
-            ]
-          }}
-        />
+            data={{
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "MasterCrypto",
+              "url": "https://mastercrypto.me",
+              "logo": "https://mastercrypto.me/logo.png",
+              "sameAs": [
+                "https://twitter.com/MasterCryptoHQ",
+                "https://facebook.com/MasterCryptoHQ",
+                "https://linkedin.com/company/mastercrypto"
+              ]
+  }}
+/>
       </body>
     </html>
   )
