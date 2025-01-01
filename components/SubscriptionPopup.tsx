@@ -8,29 +8,35 @@ import { Button } from "@/components/ui/button"
 import { X } from 'lucide-react'
 
 export default function SubscriptionPopup() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [email, setEmail] = useState("");
+  const [isVisible, setIsVisible] = useState(false)
+  const [email, setEmail] = useState("")
+  const [mounted, setMounted] = useState(false)
 
   const isRegistered = () => {
-    return localStorage.getItem('subscribed') === 'true';
-  };
+    return localStorage.getItem('subscribed') === 'true'
+  }
 
   useEffect(() => {
-    if (!isRegistered()) {
+    setMounted(true)
+    if (typeof window !== 'undefined' && !isRegistered()) {
       const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 5000);
+        setIsVisible(true)
+      }, 5000)
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer)
     }
-  }, []);
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
 
   const handleClose = () => {
-    setIsVisible(false);
-  };
+    setIsVisible(false)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (email) {
       try {
@@ -40,23 +46,23 @@ export default function SubscriptionPopup() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email }),
-        });
+        })
 
         if (!response.ok) {
-          throw new Error(`Network response was not ok: ${response.status}`);
+          throw new Error(`Network response was not ok: ${response.status}`)
         }
 
-        const data = await response.json();
-        console.log('Registration successful:', data);
-        localStorage.setItem('subscribed', 'true');
-        setIsVisible(false);
+        const data = await response.json()
+        console.log('Registration successful:', data)
+        localStorage.setItem('subscribed', 'true')
+        setIsVisible(false)
       } catch (error) {
-        console.error('There was a problem with the registration request:', error);
+        console.error('There was a problem with the registration request:', error)
       }
     } else {
-      console.error("Email cannot be empty");
+      console.error("Email cannot be empty")
     }
-  };
+  }
 
   return (
     <AnimatePresence>
@@ -96,6 +102,6 @@ export default function SubscriptionPopup() {
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }
 

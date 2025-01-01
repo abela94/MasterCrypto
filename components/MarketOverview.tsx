@@ -47,52 +47,67 @@ export default function MarketOverview() {
   const router = useRouter()
   const [listedAirdrops, setListedAirdrops] = useState(0)
   const [revealedAirdrops, setRevealedAirdrops] = useState(0)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const fetchCryptos = async () => {
-      try {
-        const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false')
-        const data = await response.json()
-        setCryptos(data)
-      } catch (error) {
-        console.error('Error fetching crypto data:', error)
-      }
-    }
-
-    fetchCryptos()
-    const interval = setInterval(fetchCryptos, 60000) // Update every minute
-
-    return () => clearInterval(interval)
+    setMounted(true)
   }, [])
 
   useEffect(() => {
-    const fetchUpcomingAirdrops = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('https://mastercrypto.onrender.com/airdrops?status=upcoming')
-        if (!response.ok) {
-          throw new Error('Failed to fetch upcoming airdrops')
+    if (mounted) {
+      const fetchCryptos = async () => {
+        try {
+          const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false')
+          const data = await response.json()
+          setCryptos(data)
+        } catch (error) {
+          console.error('Error fetching crypto data:', error)
         }
-        const data = await response.json()
-        console.log(data)
-        setAirdrops(data)
-      } catch (error) {
-        console.error('Error fetching upcoming airdrops:', error)
-        setError('Failed to load airdrops. Please try again later.')
-      } finally {
-        setLoading(false)
       }
-    }
 
-    fetchUpcomingAirdrops()
-  }, [])
+      fetchCryptos()
+      const interval = setInterval(fetchCryptos, 60000) // Update every minute
+
+      return () => clearInterval(interval)
+    }
+  }, [mounted])
 
   useEffect(() => {
-    // Simulating fetching the number of listed airdrops
-    setListedAirdrops(150)
-    // Calculate revealed airdrops based on some logic
-    setRevealedAirdrops(Math.floor(150 / 50) * 5)
-  }, [])
+    if (mounted) {
+      const fetchUpcomingAirdrops = async () => {
+        try {
+          setLoading(true)
+          const response = await fetch('https://mastercrypto.onrender.com/airdrops?status=upcoming')
+          if (!response.ok) {
+            throw new Error('Failed to fetch upcoming airdrops')
+          }
+          const data = await response.json()
+          console.log(data)
+          setAirdrops(data)
+        } catch (error) {
+          console.error('Error fetching upcoming airdrops:', error)
+          setError('Failed to load airdrops. Please try again later.')
+        } finally {
+          setLoading(false)
+        }
+      }
+
+      fetchUpcomingAirdrops()
+    }
+  }, [mounted])
+
+  useEffect(() => {
+    if (mounted) {
+      // Simulating fetching the number of listed airdrops
+      setListedAirdrops(150)
+      // Calculate revealed airdrops based on some logic
+      setRevealedAirdrops(Math.floor(150 / 50) * 5)
+    }
+  }, [mounted])
+
+  if (!mounted) {
+    return null // or a loading placeholder
+  }
 
   return (
     <section className="py-16 bg-secondary/10">
@@ -177,14 +192,12 @@ export default function MarketOverview() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-2">{airdrop.description}</p>
-                    {/* <p className="text-sm">Date: {new Date(airdrop.date).toLocaleDateString()}</p> */}
                     <p className="text-sm">Cost: ${airdrop.cost.toFixed(2)}</p>
-                    {/* <p className="text-sm">Reward Date: {new Date(airdrop.reward_date).toLocaleDateString()}</p> */}
                     <p className="text-sm">Fund Raised: ${airdrop.fund_raised.toLocaleString()}</p>
                     <p className="text-sm mb-4">Confidentiality: {airdrop.airdrop_confidentiality}</p>
                     <Button 
                       className="w-full"
-                     onClick={() => router.push('/airdrops')}
+                      onClick={() => router.push('/airdrops')}
                     >
                       See Detail
                     </Button>

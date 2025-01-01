@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react"
+// import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-
+import { useState, useEffect } from 'react'
 export default function FeedbackForm() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
   const [toast, setToast] = useState({ show: false, message: "", type: "success" })
@@ -13,7 +13,16 @@ export default function FeedbackForm() {
     const { name, value } = e.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
+  const [mounted, setMounted] = useState(false)
+  // ... other state variables
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null // or a loading placeholder
+  }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BarChart2, PieChart, TrendingUp, Shield } from 'lucide-react'
-
+import { useState, useEffect } from 'react'
   const features = [
   { 
     icon: BarChart2, 
@@ -30,6 +30,16 @@ import { BarChart2, PieChart, TrendingUp, Shield } from 'lucide-react'
 
 
 export default function FeatureHighlights() {
+    const [mounted, setMounted] = useState(false)
+  // ... other state variables
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null // or a loading placeholder
+  }
   return (
     <section id="why-choose-us" className="py-16">
       <div className="container mx-auto px-4">

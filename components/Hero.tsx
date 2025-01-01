@@ -4,20 +4,27 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Lottie from 'react-lottie'
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react'
+import { ArrowRight, Twitter, Youtube } from 'lucide-react'
 import Link from 'next/link'
-import { faTiktok } from '@fortawesome/free-brands-svg-icons';
-// Import your Lottie JSON file
+import { faTiktok } from '@fortawesome/free-brands-svg-icons'
 import cryptoAnimation from '@/components/ui/crypto.json'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 export default function Hero() {
   const [isSubscribed, setIsSubscribed] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setIsSubscribed(localStorage.getItem("subscribed") === 'true')
+    setMounted(true)
+    if (typeof window !== 'undefined') {
+      setIsSubscribed(localStorage.getItem("subscribed") === 'true')
+    }
   }, [])
 
-  // Lottie options
+  if (!mounted) {
+    return null // or a loading placeholder
+  }
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -44,19 +51,18 @@ export default function Hero() {
               MasterCrypto is the best platform to find and join the latest airdrops. Get free tokens and coins by participating in airdrops from the top crypto projects
             </p>
             <div className="mt-10 flex space-x-4">
-              {!isSubscribed ? (
+              {!isSubscribed && (
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                     Join Us <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </motion.div>
-              ) : null}
+              )}
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-  <Button size="lg" variant="outline" className="bg-transparent border-white text-white dark:border-white dark:text-white hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white">
-    Learn More
-  </Button>
-</motion.div>
-
+                <Button size="lg" variant="outline" className="bg-transparent border-white text-white dark:border-white dark:text-white hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white">
+                  Learn More
+                </Button>
+              </motion.div>
             </div>
           </motion.div>
           <motion.div
@@ -84,14 +90,6 @@ export default function Hero() {
         <Link href="https://youtube.com/@mastercrypto-pl3ub?si=Cd5RHhbDQg7YttdA" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
           <Youtube className="h-8 w-8" />
         </Link>
-        {/* <Link href="https://linkedin.com/company/MasterCrypto" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
-          <Linkedin className="h-8 w-8" />
-        </Link>
-        <Link href="https://warpcast.com/MasterCrypto" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.654-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/>
-          </svg>
-        </Link> */}
       </div>
     </section>
   )

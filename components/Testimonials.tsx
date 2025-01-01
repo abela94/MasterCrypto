@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from 'react'
+// import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-
+import { useState, useEffect } from 'react'
 const testimonials = [
   {
     id: 1,
@@ -31,6 +31,7 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
+
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const nextTestimonial = () => {
@@ -39,6 +40,16 @@ export default function Testimonials() {
 
   const prevTestimonial = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)
+  }
+    const [mounted, setMounted] = useState(false)
+  // ... other state variables
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null // or a loading placeholder
   }
 
   return (
