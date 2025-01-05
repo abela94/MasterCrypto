@@ -40,7 +40,7 @@ export default function SubscriptionPopup() {
 
     if (email) {
       try {
-        const response = await fetch('https://mastercrypto.onrender.com/register-email/', {
+        const response = await fetch('https://mastercrypto.org/register-email/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

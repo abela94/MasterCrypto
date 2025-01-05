@@ -20,7 +20,7 @@ const BlogPage: React.FC = () => {
   useEffect(() => {
     const fetchBlogPosts = async () => {
       try {
-        const response = await fetch('https://mastercrypto.onrender.com/posts')
+        const response = await fetch('https://mastercrypto.org/posts')
         if (!response.ok) {
           throw new Error('Failed to fetch blog posts')
         }

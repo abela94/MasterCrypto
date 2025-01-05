@@ -77,7 +77,7 @@ export default function MarketOverview() {
       const fetchUpcomingAirdrops = async () => {
         try {
           setLoading(true)
-          const response = await fetch('https://mastercrypto.onrender.com/airdrops?status=upcoming')
+          const response = await fetch('https://mastercrypto.org/airdrops?status=upcoming')
           if (!response.ok) {
             throw new Error('Failed to fetch upcoming airdrops')
           }
@@ -180,7 +180,7 @@ export default function MarketOverview() {
                 <Card className="h-full">
                   <div className="relative h-48">
                     <Image
-                      src={`https://mastercrypto.onrender.com${airdrop.image}`}
+                      src={`https://mastercrypto.org${airdrop.image}`}
                       alt={airdrop.name}
                       layout="fill"
                       objectFit="cover"
@@ -192,7 +192,7 @@ export default function MarketOverview() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-2">{airdrop.description}</p>
-                    <p className="text-sm">Cost: ${airdrop.cost.toFixed(2)}</p>
+                    <p className="text-sm">Cost: ${airdrop.cost}</p>
                     <p className="text-sm">Fund Raised: ${airdrop.fund_raised.toLocaleString()}</p>
                     <p className="text-sm mb-4">Confidentiality: {airdrop.airdrop_confidentiality}</p>
                     <Button 

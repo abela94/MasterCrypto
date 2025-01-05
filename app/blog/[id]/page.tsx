@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
-
+import Linkify from 'react-linkify';
 interface BlogPost {
   id: number
   title: string
@@ -18,11 +18,22 @@ const BlogPostPage: React.FC = () => {
   const [blogPost, setBlogPost] = useState<BlogPost | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const componentDecorator = (href, text, key) => (
+  <a
+    href={href}
+    key={key}
+    className="text-blue-500 underline"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {text}
+  </a>
+);
 
   useEffect(() => {
     const fetchBlogPost = async () => {
       try {
-        const response = await fetch(`https://mastercrypto.onrender.com/posts/${id}/`)
+        const response = await fetch(`https://mastercrypto.org/posts/${id}/`)
         if (!response.ok) {
           throw new Error('Failed to fetch blog post')
         }
@@ -66,7 +77,7 @@ const BlogPostPage: React.FC = () => {
         </CardHeader>
         <CardContent>
           {blogPost.content.split('\n\n').map((paragraph, index) => (
-            <p key={index} className="mb-4">{paragraph}</p>
+            <p key={index} className="mb-4"><Linkify componentDecorator={componentDecorator}>{paragraph}</Linkify></p>
           ))}
         </CardContent>
       </Card>

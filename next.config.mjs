@@ -20,7 +20,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'mastercrypto.onrender.com',
+        hostname: 'mastercrypto.org',
         pathname: '/**',
       },
     ],

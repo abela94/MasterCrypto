@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
-    const response = await fetch(`hhttps://mastercrypto.onrender.com/airdrops/${params.id}/`)
+    const response = await fetch(`hhttps://mastercrypto.org/airdrops/${params.id}/`)
     const data = await response.json()
     return NextResponse.json(data)
   } catch (error) {

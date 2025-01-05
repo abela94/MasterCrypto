@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Airdrop } from '@/types/airdrop'
 import { CalendarDays, DollarSign, Users, LinkIcon, Twitter, TextIcon as Telegram, DiscIcon as Discord } from 'lucide-react'
 import Image from 'next/image'
-
+import Linkify from 'react-linkify';
 function CountdownTimer({ endDate }: { endDate: string }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
@@ -49,11 +49,22 @@ export default function AirdropDetailPage() {
   const [airdrop, setAirdrop] = useState<Airdrop | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+const componentDecorator = (href, text, key) => (
+  <a
+    href={href}
+    key={key}
+    className="text-blue-500 underline"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {text}
+  </a>
+);
 
   useEffect(() => {
     const fetchAirdrop = async () => {
       try {
-        const response = await fetch(`https://mastercrypto.onrender.com/airdrops/${id}`)
+        const response = await fetch(`https://mastercrypto.org/airdrops/${id}`)
         if (!response.ok) {
           throw new Error('Failed to fetch airdrop')
         }
@@ -90,7 +101,7 @@ export default function AirdropDetailPage() {
       <div className="relative h-64 rounded-xl overflow-hidden mb-8">
         <Image src={airdrop.image} alt={airdrop.name} layout="fill" objectFit="cover" />
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <h1 className="text-4xl font-bold text-white">{airdrop.name} ({airdrop.token_symbol}) Airdrop</h1>
+          <h1 className="text-4xl font-bold text-white">{airdrop.name}  Airdrop</h1>
         </div>
       </div>
 
@@ -101,29 +112,29 @@ export default function AirdropDetailPage() {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="overview">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="participation">How to Participate</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3" style={{display:'grid', padding :'5px'}}>
+                <TabsTrigger value="overview">Overview  </TabsTrigger>
+                <TabsTrigger value="participation">How to Participate   </TabsTrigger>
                 <TabsTrigger value="about">About Project</TabsTrigger>
               </TabsList>
               <TabsContent value="overview">
                 <div className="space-y-4">
-                  <p><strong>Description:</strong> {airdrop.description}</p>
+                  <p><strong>Description :</strong><Linkify componentDecorator={componentDecorator}>{airdrop.description}</Linkify></p>
                   <div className="flex items-center space-x-2">
                     <CalendarDays className="h-5 w-5 text-primary" />
-                    <span><strong>Start Date:</strong> {airdrop.date}</span>
+                    <span><strong>Start Date :</strong> {airdrop.date}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <CalendarDays className="h-5 w-5 text-primary" />
-                    <span><strong>End Date:</strong> {airdrop.reward_date}</span>
+                    <span><strong>End Date :</strong> {airdrop.reward_date}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <DollarSign className="h-5 w-5 text-primary" />
-                    <span><strong>Cost:</strong> ${airdrop.cost}</span>
+                    <span><strong>Cost :</strong> ${airdrop.cost}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Users className="h-5 w-5 text-primary" />
-                    <span><strong>Backers:</strong> {airdrop.backers}</span>
+                    <span><strong>Backed By :</strong> {airdrop.backers}</span>
                   </div>
                 </div>
               </TabsContent>
@@ -132,22 +143,50 @@ export default function AirdropDetailPage() {
                   {airdrop.steps.map((step, index) => (
                   <li key={index} className="space-y-2">
                     <h2>Step {index + 1}</h2>
-                    <p>{step.description}</p>
+                    <p><Linkify componentDecorator={componentDecorator}>{step.description}</Linkify></p>
                     <Image src={step.image} alt={`Step ${index + 1}`} width={10000} height={10000} style={{ height: '10%', width: '100%' }} />
                   </li>
                   ))}
                 </ol>
                 <div className="mt-4 space-x-4">
-                  <Button asChild>
-                  <a href={airdrop.eligibility_checker} target="_blank" rel="noopener noreferrer">Check Eligibility</a>
-                  </Button>
-                  <Button asChild>
-                  <a href={airdrop.claim_airdrop} target="_blank" rel="noopener noreferrer">Claim Airdrop</a>
-                  </Button>
+              <Button 
+  asChild 
+  disabled={!airdrop.eligibility_checker} // Disable button if the link is empty
+  style={{
+    backgroundColor: !airdrop.eligibility_checker ? "gray" : "color-primary",
+    cursor: !airdrop.eligibility_checker ? "not-allowed" : "pointer",
+  }}
+>
+  {airdrop.eligibility_checker ? (
+    <a href={airdrop.eligibility_checker} target="_blank" rel="noopener noreferrer">
+      Check Eligibility
+    </a>
+  ) : (
+    <span>Check Eligibility</span> // Display text instead of a link
+  )}
+</Button>
+
+<Button 
+  asChild 
+  disabled={!airdrop.claim_airdrop} // Disable button if the link is empty
+  style={{
+    backgroundColor: !airdrop.claim_airdrop ? "gray" : "color-primary",
+    cursor: !airdrop.claim_airdrop ? "not-allowed" : "pointer",
+  }}
+>
+  {airdrop.claim_airdrop ? (
+    <a href={airdrop.claim_airdrop} target="_blank" rel="noopener noreferrer">
+      Claim Airdrop
+    </a>
+  ) : (
+    <span>Claim Airdrop</span> // Display text instead of a link
+  )}
+</Button>
+
                 </div>
               </TabsContent>
               <TabsContent value="about">
-                <p>{airdrop.description}</p>
+                <p><Linkify componentDecorator={componentDecorator}>{airdrop.description}</Linkify></p>
                 <div className="mt-4">
                   <Button asChild variant="outline">
                     <a href={airdrop.website} target="_blank" rel="noopener noreferrer">
