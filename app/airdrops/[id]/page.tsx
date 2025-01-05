@@ -49,7 +49,7 @@ export default function AirdropDetailPage() {
   const [airdrop, setAirdrop] = useState<Airdrop | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-const componentDecorator = (href, text, key) => (
+const componentDecorator = (href:string, text:string, key:number) => (
   <a
     href={href}
     key={key}
