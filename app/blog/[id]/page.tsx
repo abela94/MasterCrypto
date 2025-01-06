@@ -77,7 +77,7 @@ const BlogPostPage: React.FC = () => {
         </CardHeader>
         <CardContent>
           {blogPost.content.split('\n\n').map((paragraph, index) => (
-            <p key={index} className="mb-4"><Linkify componentDecorator={componentDecorator}>{paragraph}</Linkify></p>
+            <p style={{ whiteSpace: 'pre-wrap'}} key={index} className="mb-4"><Linkify componentDecorator={componentDecorator}>{paragraph}</Linkify></p>
           ))}
         </CardContent>
       </Card>

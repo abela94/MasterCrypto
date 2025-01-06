@@ -141,9 +141,9 @@ const componentDecorator = (href:string, text:string, key:number) => (
               <TabsContent value="participation">
                 <ol className="list-decimal list-inside space-y-4">
                   {airdrop.steps.map((step, index) => (
-                  <li key={index} className="space-y-2">
+                  <li key={index} className="space-y-2" value='hidden'>
                     <h2>Step {index + 1}</h2>
-                    <p><Linkify componentDecorator={componentDecorator}>{step.description}</Linkify></p>
+                    <p style={{ whiteSpace: 'pre-wrap'}}><Linkify componentDecorator={componentDecorator}>{step.description}</Linkify></p>
                     <Image src={step.image} alt={`Step ${index + 1}`} width={10000} height={10000} style={{ height: '10%', width: '100%' }} />
                   </li>
                   ))}
@@ -186,7 +186,7 @@ const componentDecorator = (href:string, text:string, key:number) => (
                 </div>
               </TabsContent>
               <TabsContent value="about">
-                <p><Linkify componentDecorator={componentDecorator}>{airdrop.description}</Linkify></p>
+                <p style={{ whiteSpace: 'pre-wrap'}}><Linkify componentDecorator={componentDecorator}>{airdrop.description}</Linkify></p>
                 <div className="mt-4">
                   <Button asChild variant="outline">
                     <a href={airdrop.website} target="_blank" rel="noopener noreferrer">
