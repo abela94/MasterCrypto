@@ -191,9 +191,11 @@ export default function MarketOverview() {
                     <CardTitle>{airdrop.name}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground mb-2">{airdrop.description}</p>
+                   <p className="text-sm text-muted-foreground mb-2">
+  {airdrop.description.length > 30 ? airdrop.description.substring(0, 30) + "..." : airdrop.description}
+</p>
                     <p className="text-sm">Cost: ${airdrop.cost}</p>
-                    <p className="text-sm">Fund Raised: ${airdrop.fund_raised.toLocaleString()}</p>
+                    <p className="text-sm">Fund Raised: ${ airdrop.fund_raised ==null ? airdrop.fund_raised : airdrop.fund_raised.toLocaleString()}</p>
                     <p className="text-sm mb-4">Confidentiality: {airdrop.airdrop_confidentiality}</p>
                     <Button 
                       className="w-full"

@@ -241,17 +241,17 @@ const componentDecorator = (href:string, text:string, key:number) => (
             </CardHeader>
             <CardContent>
               <div className="flex space-x-4">
-                {airdrop.social_medias.twitter && (
-                  <a href={airdrop.social_medias.twitter} target="_blank" rel="noopener noreferrer">
+                {airdrop.social_medias ==null ? '': airdrop.social_medias.twitter && (
+                  <a href={ airdrop.social_medias.twitter} target="_blank" rel="noopener noreferrer">
                     <Twitter className="h-6 w-6 text-primary" />
                   </a>
                 )}
-                {airdrop.social_medias.telegram && (
-                  <a href={airdrop.social_medias.telegram} target="_blank" rel="noopener noreferrer">
+                {airdrop.social_medias ==null ? '' : airdrop.social_medias.telegram  && (
+                  <a href={airdrop.social_medias.telegram } target="_blank" rel="noopener noreferrer">
                     <Telegram className="h-6 w-6 text-primary" />
                   </a>
                 )}
-                {airdrop.social_medias.discord && (
+                {airdrop.social_medias ==null ? '' : airdrop.social_medias.discord && (
                   <a href={airdrop.social_medias.discord} target="_blank" rel="noopener noreferrer">
                     <Discord className="h-6 w-6 text-primary" />
                   </a>
