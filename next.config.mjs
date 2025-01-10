@@ -23,6 +23,11 @@ const nextConfig = {
         hostname: 'mastercrypto.org',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'mastercrypto.orgnull',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (config, { isServer }) => {

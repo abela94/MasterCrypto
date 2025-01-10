@@ -99,7 +99,7 @@ const componentDecorator = (href:string, text:string, key:number) => (
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="relative h-64 rounded-xl overflow-hidden mb-8">
-        <Image src={airdrop.image} alt={airdrop.name} layout="fill" objectFit="cover" />
+        <Image src={airdrop.image== null ? '':airdrop.image} alt={airdrop.name} layout="fill" objectFit="cover" />
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <h1 className="text-4xl font-bold text-white">{airdrop.name}  Airdrop</h1>
         </div>
