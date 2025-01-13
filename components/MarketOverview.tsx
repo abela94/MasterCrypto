@@ -77,7 +77,7 @@ export default function MarketOverview() {
       const fetchUpcomingAirdrops = async () => {
         try {
           setLoading(true)
-          const response = await fetch('https://mastercrypto.org/airdrops?status=upcoming')
+          const response = await fetch('https://mastercrypto.org/airdrops?status=ongoing')
           if (!response.ok) {
             throw new Error('Failed to fetch upcoming airdrops')
           }
@@ -170,7 +170,7 @@ export default function MarketOverview() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {airdrops.map((airdrop, index) => (
+            {airdrops.slice(0,6).map((airdrop, index) => (
               <motion.div
                 key={airdrop.id}
                 initial={{ opacity: 0, y: 20 }}

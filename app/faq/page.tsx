@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     question: "How long does it take to receive tokens from an airdrop?",
-    answer: "The time it takes to receive tokens from an airdrop can vary depending on the project. It can take anywhere from a few days to a few weeks. Always follow up on the project's communication channels for updates."
+    answer: "The time it takes to receive tokens from an airdrop can vary depending on the project. It can take anywhere from a few days to a few weeks or few months even a year or Two years. Always follow up on the project's communication channels for updates."
   }
 ]
 export default function FAQPage() {

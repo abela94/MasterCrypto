@@ -99,7 +99,7 @@ const AirdropsPage: React.FC = () => {
 
             </div>
             <CardHeader>
-              <CardTitle>{airdrop.name} ({airdrop.token_symbol})</CardTitle>
+              <CardTitle>{airdrop.name}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-4">{airdrop.description.substring(0, 100)}...</p>

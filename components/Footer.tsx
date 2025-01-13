@@ -99,6 +99,8 @@ export default function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700">
             <p className="text-center text-gray-500 mt-4">© {new Date().getFullYear()} MasterCrypto. All rights reserved.</p>
+            <p className="text-center text-gray-500 mt-4">Developed By <b><a href="http://portfolio.abela.engineer" style={{textDecoration: 'underline' }}>Abel</a></b> and <b><a href="https://nati16.com" style={{textDecoration: 'underline' }}>Nati </a></b> </p>
+
         </div>
       </div>
     </footer>
