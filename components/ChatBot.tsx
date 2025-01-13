@@ -29,7 +29,7 @@ export default function ChatBot() {
       setInput('')
       
       try {
-        const response = await fetch('http://mastercrypto.org/chat/', {
+        const response = await fetch('https://mastercrypto.org/chat/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: input })
