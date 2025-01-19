@@ -1,15 +1,26 @@
-import { NextResponse } from 'next/server'
+// app/api/airdrops/[id]/route.js
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+import { NextResponse } from 'next/server';
+
+export async function GET(request, { params }) {
   try {
-    const response = await fetch(`https://mastercrypto.org/airdrops/${params.id}/`)
-    const data = await response.json()
-    return NextResponse.json(data)
+    const response = await fetch(`https://mastercrypto.org/airdrops/${params.id}/`);
+    const data = await response.json();
+    return NextResponse.json(data);
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch airdrop' }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to fetch airdrop' }, { status: 500 });
   }
 }
 
+// Generate static parameters for all possible airdrop IDs
+export async function generateStaticParams() {
+  const res = await fetch('https://mastercrypto.org/airdrops/');
+  const airdrops = await res.json();
+
+  return airdrops.map(airdrop => ({
+    id: airdrop.id.toString(),
+  }));
+}
 
 
 // import { NextResponse } from 'next/server'
