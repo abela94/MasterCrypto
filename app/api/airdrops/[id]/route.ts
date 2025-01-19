@@ -1,28 +1,42 @@
-import { NextResponse } from 'next/server'
+// import { NextResponse } from 'next/server'
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  try {
-    const response = await fetch(`https://mastercrypto.org/airdrops/${params.id}/`)
-    const data = await response.json()
-    return NextResponse.json(data)
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch airdrop' }, { status: 500 })
-  }
-}
-
-// export async function generateStaticParams() {
+// export async function GET(request: Request, { params }: { params: { id: string } }) {
 //   try {
-//     // Fetch all airdrop IDs from your API
-//     const response = await fetch('https://mastercrypto.org/airdrops/')
-//     const airdrops = await response.json()
-
-//     // Return an array of objects, each with an 'id' property
-//     return airdrops.map((airdrop: { id: string }) => ({
-//       id: airdrop.id,
-//     }))
+//     const response = await fetch(`https://mastercrypto.org/airdrops/${params.id}/`)
+//     const data = await response.json()
+//     return NextResponse.json(data)
 //   } catch (error) {
-//     console.error('Failed to fetch airdrop IDs for static generation:', error)
-//     return [] // Return an empty array if fetching fails
+//     return NextResponse.json({ error: 'Failed to fetch airdrop' }, { status: 500 })
 //   }
 // }
+
+
+
+// import { NextResponse } from 'next/server'
+
+// export async function GET(request: Request, { params }: { params: { id: string } }) {
+//   try {
+//     const response = await fetch(`https://mastercrypto.org/airdrops/${params.id}/`)
+//     const data = await response.json()
+//     return NextResponse.json(data)
+//   } catch (error) {
+//     return NextResponse.json({ error: 'Failed to fetch airdrop' }, { status: 500 })
+//   }
+// }
+
+// // export async function generateStaticParams() {
+// //   try {
+// //     // Fetch all airdrop IDs from your API
+// //     const response = await fetch('https://mastercrypto.org/airdrops/')
+// //     const airdrops = await response.json()
+
+// //     // Return an array of objects, each with an 'id' property
+// //     return airdrops.map((airdrop: { id: string }) => ({
+// //       id: airdrop.id,
+// //     }))
+// //   } catch (error) {
+// //     console.error('Failed to fetch airdrop IDs for static generation:', error)
+// //     return [] // Return an empty array if fetching fails
+// //   }
+// // }
 
